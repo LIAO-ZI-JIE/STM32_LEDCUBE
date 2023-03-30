@@ -1,8 +1,11 @@
 #include "stm32f10x.h"                  // Device header
 #include "Timer.h"
-#define DataPin(x)		GPIO_WriteBit(GPIOA, GPIO_Pin_0, (BitAction)(x))
-#define ClockPin(x)		GPIO_WriteBit(GPIOA, GPIO_Pin_1, (BitAction)(x))
-#define LatchPin(x)		GPIO_WriteBit(GPIOA, GPIO_Pin_2, (BitAction)(x))
+#include <math.h>
+#include "Delay.h"
+#define pi 3.1415926
+#define DataPin(x)		GPIO_WriteBit(GPIOB, GPIO_Pin_15, (BitAction)(x))
+#define ClockPin(x)		GPIO_WriteBit(GPIOB, GPIO_Pin_13, (BitAction)(x))
+#define LatchPin(x)		GPIO_WriteBit(GPIOB, GPIO_Pin_14, (BitAction)(x))
 uint8_t LED[8][8]=		{
 						{0x01,0xff,0xff,0xff,0xff,0xff,0xff,0xff},
 						{0x00,0xff,0xff,0xff,0xff,0xff,0xff,0xff},
@@ -16,12 +19,12 @@ uint8_t LED[8][8]=		{
 void Cube_Init(void)
 {
 	Timer_Init();
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA,ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB,ENABLE);
 	GPIO_InitTypeDef GPIO_InitStructure;
 	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_OD;
-	GPIO_InitStructure.GPIO_Pin=GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2;
+	GPIO_InitStructure.GPIO_Pin=GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15;
 	GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;
-	GPIO_Init(GPIOA,&GPIO_InitStructure);
+	GPIO_Init(GPIOB,&GPIO_InitStructure);
 	
 }
 /**
@@ -50,7 +53,6 @@ void Cube_Print (unsigned char stair)
 		{
 			ClockPin(0);
 			DataPin((LED[stair][i])&(0x01<<j));
-//			DataPin=1;
 			ClockPin(1);
 		}
 	}
@@ -90,12 +92,35 @@ void Cube_Dark(void)
 }
 /**
   * @brief   在LED CUBE上畫出點
-  * @param   輸入的x (1~8)
-  * @param   輸入的y (1~8)
-  * @param   輸入的z (1~8)
+  * @param   輸入的x座標 (1~8)
+  * @param   輸入的y座標 (1~8)
+  * @param   輸入的z座標 (1~8)
   * @retval  無 
   */
 void Cube_Draw(uint8_t x,uint8_t y,uint8_t z)
 {
-	LED[y-1][z-1]|=(0x01<<(x-1));
+	LED[z][y]|=(0x01<<(x));
+}
+/**
+  * @brief 將波浪數據寫入
+  * @param   無
+  * @retval  無
+  */
+void Cube_Wave (void)
+{
+	int y,x,t;
+    float z;
+    for(t=0;t<14;t++)
+    {
+        for(y=0;y<8;y++)
+        {
+            for(x=0;x<8;x++)
+            {
+                z=3.5*sin((pi/7)*t+(pi/7)*x-(pi/7)*y)+4;
+                Cube_Draw(x,y,z);
+            }
+        }
+		Delay_ms(100);
+		Cube_Dark();
+    }   
 }

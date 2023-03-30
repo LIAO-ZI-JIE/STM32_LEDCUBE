@@ -29,6 +29,7 @@
 ".\objects\stm32f10x_it.o"
 ".\objects\delay.o"
 ".\objects\timer.o"
+".\objects\matirx.o"
 ".\objects\oled.o"
 ".\objects\ledcube.o"
 --strict --scatter ".\Objects\project.sct"

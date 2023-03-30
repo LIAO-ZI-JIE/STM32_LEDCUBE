@@ -695,6 +695,16 @@
               <FileType>5</FileType>
               <FilePath>.\System\Timer.h</FilePath>
             </File>
+            <File>
+              <FileName>Matirx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\System\Matirx.c</FilePath>
+            </File>
+            <File>
+              <FileName>Matrix.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\System\Matrix.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

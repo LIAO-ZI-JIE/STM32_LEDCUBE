@@ -29,3 +29,5 @@
 .\objects\ledcube.o: .\Libaray\stm32f10x_wwdg.h
 .\objects\ledcube.o: .\Libaray\misc.h
 .\objects\ledcube.o: .\System\Timer.h
+.\objects\ledcube.o: C:\keil\ARM\ARMCC\Bin\..\include\math.h
+.\objects\ledcube.o: .\System\Delay.h

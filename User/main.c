@@ -40,78 +40,81 @@ int main(void)
 
 	Cube_Init();
 	Cube_Dark();
+	Cube_Draw(0,0,0);
+//	Cube_Draw(8,8,1);
+
 	while (1)
 	{
-		
+//		
 		uint8_t x,y,z,i,j,k;
-		
-		for(x=0;x<10;x++)
-		{
-			for(j=0;j<4;j++)
-			{
-				NewData[1][j]=Data[i][j];
-			}
-			i = 0;//行
-			j = 0;//列
-			k = 0;//行列中，第k个元素相乘
-			for (i = 0; i < 4; i++)//从第i行开始
-			{
-				for (j = 0; j < 1; j++)//从第j列开始
-				{
-					for (k = 0; k < 4; k++)//i行元素和j列元素相乘，结果累加
-					{
-						outData[i][j] += Matrix_m[i][k] * NewData[k][j];
-					}
-				}
-			}
-						
-				Cube_Draw(outData[0][0],outData[0][1],outData[0][2]);
+//		
+////		for(x=0;x<10;x++)
+////		{
+////			for(j=0;j<4;j++)
+////			{
+////				NewData[1][j]=Data[i][j];
+////			}
+////			i = 0;//行
+////			j = 0;//列
+////			k = 0;//行列中，第k个元素相乘
+////			for (i = 0; i < 4; i++)//从第i行开始
+////			{
+////				for (j = 0; j < 1; j++)//从第j列开始
+////				{
+////					for (k = 0; k < 4; k++)//i行元素和j列元素相乘，结果累加
+////					{
+////						outData[i][j] += Matrix_m[i][k] * NewData[k][j];
+////					}
+////				}
+////			}
+////						
+////				Cube_Draw(outData[0][0],outData[0][1],outData[0][2]);
 
-		}
+////		}
 
-//			Cube_Draw(Data[x][0]+4,Data[x][1]+4,Data[x][2]+4);
-		Cube_Dark();
-		for(x=1;x<=8;x++)
-		{
-			for(y=1;y<=8;y++)
-			{
-				for(z=1;z<=8;z++)
-				{
-						Cube_Draw(x,y,z);
-						Delay_ms(10);
-				}
-			
-			}
-		
-		}
-		Cube_Dark();
-		for(y=1;y<=8;y++)
-		{
-			for(x=1;x<=8;x++)
-			{
-				for(z=1;z<=8;z++)
-				{
-						Cube_Draw(x,y,z);
-						Delay_ms(10);
-				}
-			
-			}
-		
-		}
-		Cube_Dark();
-		for(z=1;z<=8;z++)
-		{
-			for(x=1;x<=8;x++)
-			{
-				for(y=1;y<=8;y++)
-				{
-						Cube_Draw(x,y,z);
-						Delay_ms(10);
-				}
-			
-			}
-		
-		}
+////			Cube_Draw(Data[x][0]+4,Data[x][1]+4,Data[x][2]+4);
+//		Cube_Dark();
+//		for(x=1;x<=8;x++)
+//		{
+//			for(y=1;y<=8;y++)
+//			{
+//				for(z=1;z<=8;z++)
+//				{
+//						Cube_Draw(x,y,z);
+//						Delay_ms(10);
+//				}
+//			
+//			}
+//		
+//		}
+//		Cube_Dark();
+//		for(y=1;y<=8;y++)
+//		{
+//			for(x=1;x<=8;x++)
+//			{
+//				for(z=1;z<=8;z++)
+//				{
+//						Cube_Draw(x,y,z);
+//						Delay_ms(10);
+//				}
+//			
+//			}
+//		
+//		}
+//		Cube_Dark();
+//		for(z=1;z<=8;z++)
+//		{
+//			for(x=1;x<=8;x++)
+//			{
+//				for(y=1;y<=8;y++)
+//				{
+//						Cube_Draw(x,y,z);
+//						Delay_ms(1000);
+//				}
+//			
+//			}
+//		
+//		}
 		
 
 //	for (uint8_t i = 0; i < s; i++) {
@@ -128,8 +131,9 @@ int main(void)
 //    Cube_Draw(x + s - 1, y, z + i);
 //    Cube_Draw(x, y + s - 1, z + i);
 //  }
-
+		Cube_Wave();
 	}
+	
 
 		
 		

@@ -31,3 +31,4 @@
 .\objects\main.o: .\System\Delay.h
 .\objects\main.o: .\Hardware\OLED.h
 .\objects\main.o: .\Hardware\LEDCUBE.h
+.\objects\main.o: .\System\Matrix.h

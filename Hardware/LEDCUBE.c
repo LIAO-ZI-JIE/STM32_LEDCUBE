@@ -120,7 +120,7 @@ void Cube_Wave (void)
                 Cube_Draw(x,y,z);
             }
         }
-		Delay_ms(100);
+		Delay_ms(10);
 		Cube_Dark();
     }   
 }

@@ -30,5 +30,7 @@
 .\objects\main.o: .\Libaray\misc.h
 .\objects\main.o: .\System\Delay.h
 .\objects\main.o: .\Hardware\OLED.h
-.\objects\main.o: .\Hardware\LEDCUBE.h
 .\objects\main.o: .\System\Matrix.h
+.\objects\main.o: .\Hardware\Serial.h
+.\objects\main.o: C:\keil\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\main.o: .\Hardware\LEDCUBE.h

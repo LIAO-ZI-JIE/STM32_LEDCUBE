@@ -1,5 +1,8 @@
 #ifndef _MATRIX_H
 #define _MATRIX_H
+/**
+  * @brief  
+  */
 typedef struct 
 {
     int X_rotation;

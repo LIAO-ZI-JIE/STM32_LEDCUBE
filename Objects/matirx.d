@@ -28,6 +28,7 @@
 .\objects\matirx.o: .\Libaray\stm32f10x_usart.h
 .\objects\matirx.o: .\Libaray\stm32f10x_wwdg.h
 .\objects\matirx.o: .\Libaray\misc.h
+.\objects\matirx.o: System\Matrix.h
 .\objects\matirx.o: .\Hardware\LEDCUBE.h
 .\objects\matirx.o: C:\keil\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\matirx.o: C:\keil\ARM\ARMCC\Bin\..\include\string.h

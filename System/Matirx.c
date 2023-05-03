@@ -1,25 +1,12 @@
 #include "stm32f10x.h"                  // Device header
+#include "Matrix.h"
 #include "LEDCUBE.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
 #define pi 3.1415926
-/**
-  * @brief  矩陣結構體
-  */
-typedef struct 
-{
-    int X_rotation;
-    int Y_rotation;
-    int Z_rotation;
-    int X_translation;
-    int Y_translation;
-    int Z_translation;
-    int X_scale;
-    int Y_scale;
-    int Z_scale;
-} Matrix_Data;
+
 /**
   * @brief   製作平移矩陣
   * @param   矩陣資料結構體

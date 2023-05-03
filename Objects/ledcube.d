@@ -30,4 +30,6 @@
 .\objects\ledcube.o: .\Libaray\misc.h
 .\objects\ledcube.o: .\System\Timer.h
 .\objects\ledcube.o: C:\keil\ARM\ARMCC\Bin\..\include\math.h
+.\objects\ledcube.o: C:\keil\ARM\ARMCC\Bin\..\include\string.h
 .\objects\ledcube.o: .\System\Delay.h
+.\objects\ledcube.o: .\System\Matrix.h

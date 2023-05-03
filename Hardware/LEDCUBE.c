@@ -1,7 +1,9 @@
 #include "stm32f10x.h"                  // Device header
 #include "Timer.h"
 #include <math.h>
+#include <string.h>
 #include "Delay.h"
+#include "Matrix.h"
 #define pi 3.1415926
 #define DataPin(x)		GPIO_WriteBit(GPIOB, GPIO_Pin_15, (BitAction)(x))
 #define ClockPin(x)		GPIO_WriteBit(GPIOB, GPIO_Pin_13, (BitAction)(x))
@@ -21,7 +23,7 @@ void Cube_Init(void)
 	Timer_Init();
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB,ENABLE);
 	GPIO_InitTypeDef GPIO_InitStructure;
-	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_OD;
+	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_PP;
 	GPIO_InitStructure.GPIO_Pin=GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15;
 	GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;
 	GPIO_Init(GPIOB,&GPIO_InitStructure);
@@ -123,4 +125,45 @@ void Cube_Wave (void)
 		Delay_ms(10);
 		Cube_Dark();
     }   
+}
+void Cube_drawCube(uint8_t x, uint8_t y, uint8_t z, uint8_t s) 
+{
+  for (uint8_t i = 0; i < s; i++) {
+    Cube_Draw(x, y + i, z);
+    Cube_Draw(x + i, y, z);
+    Cube_Draw(x, y, z + i);
+    Cube_Draw(x + s - 1, y + i, z + s - 1);
+    Cube_Draw(x + i, y + s - 1, z + s - 1);
+    Cube_Draw(x + s - 1, y + s - 1, z + i);
+    Cube_Draw(x + s - 1, y + i, z);
+    Cube_Draw(x, y + i, z + s - 1);
+    Cube_Draw(x + i, y + s - 1, z);
+    Cube_Draw(x + i, y, z + s - 1);
+    Cube_Draw(x + s - 1, y, z + i);
+    Cube_Draw(x, y + s - 1, z + i);
+  }
+}
+void Cube_DrawCube_Matrix(uint8_t x, uint8_t y, uint8_t z, uint8_t s,Matrix_Data *Matrix_Structure)
+{
+	static Matrix_Data last;
+	if (memcmp(&last,Matrix_Structure,sizeof(last)))
+    { 
+		Cube_Dark();
+		for (float i = 0; i < s; i+=0.1)
+		{
+		matrix_translate(x, y + i, z,Matrix_Structure);
+		matrix_translate(x + i, y, z,Matrix_Structure);
+		matrix_translate(x, y, z + i,Matrix_Structure);
+		matrix_translate(x + s - 1, y + i, z + s - 1,Matrix_Structure);
+		matrix_translate(x + i, y + s - 1, z + s - 1,Matrix_Structure);
+		matrix_translate(x + s - 1, y + s - 1, z + i,Matrix_Structure);
+		matrix_translate(x + s - 1, y + i, z,Matrix_Structure);
+		matrix_translate(x, y + i, z + s - 1,Matrix_Structure);
+		matrix_translate(x + i, y + s - 1, z,Matrix_Structure);
+		matrix_translate(x + i, y, z + s - 1,Matrix_Structure);
+		matrix_translate(x + s - 1, y, z + i,Matrix_Structure);
+		matrix_translate(x, y + s - 1, z + i,Matrix_Structure);
+		}
+		memcpy(&last,Matrix_Structure,sizeof(last));
+	}
 }

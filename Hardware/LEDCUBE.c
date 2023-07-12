@@ -8,16 +8,7 @@
 #define DataPin(x)		GPIO_WriteBit(GPIOB, GPIO_Pin_15, (BitAction)(x))
 #define ClockPin(x)		GPIO_WriteBit(GPIOB, GPIO_Pin_13, (BitAction)(x))
 #define LatchPin(x)		GPIO_WriteBit(GPIOB, GPIO_Pin_14, (BitAction)(x))
-uint8_t LED[8][8]=		{
-						{0x01,0xff,0xff,0xff,0xff,0xff,0xff,0xff},
-						{0x00,0xff,0xff,0xff,0xff,0xff,0xff,0xff},
-						{0x00,0xff,0xff,0xff,0xff,0xff,0xff,0xff},
-						{0x00,0xff,0xff,0xff,0xff,0xff,0xff,0xff},
-						{0x00,0xff,0xff,0xff,0xff,0xff,0xff,0xff},
-						{0x00,0xff,0xff,0xff,0xff,0xff,0xff,0xff},
-						{0x00,0xff,0xff,0xff,0xff,0xff,0xff,0xff},
-						{0x00,0xff,0xff,0xff,0xff,0xff,0xff,0xff},						
-						};
+uint8_t LED[8][8];
 void Cube_Init(void)
 {
 	Timer_Init();
@@ -94,13 +85,17 @@ void Cube_Dark(void)
 }
 /**
   * @brief   在LED CUBE上畫出點
-  * @param   輸入的x座標 (1~8)
-  * @param   輸入的y座標 (1~8)
-  * @param   輸入的z座標 (1~8)
+  * @param   輸入的x座標 (0~7)
+  * @param   輸入的y座標 (0~7)
+  * @param   輸入的z座標 (0~7)
   * @retval  無 
   */
-void Cube_Draw(uint8_t x,uint8_t y,uint8_t z)
+void Cube_Draw(int8_t x,int8_t y,int8_t z)
 {
+	if(x<0 || x>7 || y<0 || y>7 || z<0 || z>7)
+	{
+		return;
+	}
 	LED[z][y]|=(0x01<<(x));
 }
 /**
@@ -126,7 +121,7 @@ void Cube_Wave (void)
 		Cube_Dark();
     }   
 }
-void Cube_drawCube(uint8_t x, uint8_t y, uint8_t z, uint8_t s) 
+void Cube_drawCube(int8_t x, int8_t y, int8_t z, int8_t s) 
 {
   for (uint8_t i = 0; i < s; i++) {
     Cube_Draw(x, y + i, z);
@@ -143,13 +138,13 @@ void Cube_drawCube(uint8_t x, uint8_t y, uint8_t z, uint8_t s)
     Cube_Draw(x, y + s - 1, z + i);
   }
 }
-void Cube_DrawCube_Matrix(uint8_t x, uint8_t y, uint8_t z, uint8_t s,Matrix_Data *Matrix_Structure)
+void Cube_DrawCube_Matrix(int8_t x, int8_t y, int8_t z, int8_t s,Matrix_Data *Matrix_Structure)
 {
 	static Matrix_Data last;
 	if (memcmp(&last,Matrix_Structure,sizeof(last)))
     { 
 		Cube_Dark();
-		for (float i = 0; i < s; i+=0.1)
+		for (float i = 0; i < s; i++)
 		{
 		matrix_translate(x, y + i, z,Matrix_Structure);
 		matrix_translate(x + i, y, z,Matrix_Structure);

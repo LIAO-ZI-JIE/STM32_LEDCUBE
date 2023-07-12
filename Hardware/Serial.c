@@ -15,6 +15,7 @@ char *Matrix_Serial_Command[]={
     "Matrix_scale_X_Data",
     "Matrix_scale_Y_Data",
     "Matrix_scale_Z_Data",
+	"Change_status_flag"
     };
 
 void Serial_Init(void)
@@ -111,7 +112,7 @@ uint8_t Serial_GetRxData(void)
 }
 
 
-void Serial_Change(Matrix_Data *Matrix_Structure)
+void Serial_Change(Matrix_Data *Matrix_Structure,int8_t *status_flag)
 {
     int32_t Num;
     int8_t i;
@@ -121,7 +122,7 @@ void Serial_Change(Matrix_Data *Matrix_Structure)
     {
         Num=-Num;
     }
-    for(i=0;i<=8;i++)
+    for(i=0;i<=9;i++)
     {
         if(strcmp(Matrix_Serial_Command[i],Serial_Data_point+4)==0)
         {
@@ -163,7 +164,11 @@ void Serial_Change(Matrix_Data *Matrix_Structure)
             case 8:
                 Matrix_Structure->Z_scale=Num;
 				printf("Matrix_Z_scale has been translate to %d\r\n",Matrix_Structure->Z_scale);
-                break;                                 
+                break; 
+			case 9:
+				*status_flag=Num;
+				printf("status flag has been chage to %d\r\n",*status_flag);
+			break; 		
             default:
                 break;
             }
